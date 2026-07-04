@@ -45,3 +45,14 @@ style: 코드 포맷팅
 refactor: 코드 리팩토링
 test: 테스트 코드 추가
 chore: 기타 설정 및 관리 작업
+
+```
+
+쓰는 법
+```
+git pull 
+git add .
+git commit
+git push origin [본인 브랜치 명]
+```
+git push origin taeYoungBranch
