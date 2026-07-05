@@ -1,0 +1,19 @@
+#!/bin/sh
+
+echo "[INFO] pre-commit 검사 시작"
+
+# 충돌 마커 검사
+if git diff --cached --check; then
+  echo "[OK] 공백 및 충돌 마커 검사 통과"
+else
+  echo "[ERROR] 공백 오류 또는 충돌 마커가 있습니다."
+  exit 1
+fi
+
+# .env 커밋 방지
+if git diff --cached --name-only | grep -q "^.env$"; then
+  echo "[ERROR] .env 파일은 커밋하면 안 됩니다."
+  exit 1
+fi
+
+echo "[OK] pre-commit 검사 완료"
