@@ -2,17 +2,16 @@
 
 echo "[INFO] pre-commit 검사 시작"
 
-# 충돌 마커 검사
-if git diff --cached --check; then
-  echo "[OK] 공백 및 충돌 마커 검사 통과"
-else
-  echo "[ERROR] 공백 오류 또는 충돌 마커가 있습니다."
+# .env 커밋 방지
+if git diff --cached --name-only | grep -E -q '(^|/)\.env$'; then
+  echo "[ERROR] .env 파일은 커밋하면 안 됩니다."
   exit 1
 fi
 
-# .env 커밋 방지
-if git diff --cached --name-only | grep -q "^.env$"; then
-  echo "[ERROR] .env 파일은 커밋하면 안 됩니다."
+# 충돌 마커 검사
+if git diff --cached | grep -E '^\+<<<<<<< |^\+=======|^\+>>>>>>> ' > /dev/null; then
+  echo "[ERROR] 충돌 마커가 포함되어 있습니다."
+  echo "        <<<<<<<, =======, >>>>>>> 표시를 해결한 뒤 다시 커밋하세요."
   exit 1
 fi
 
