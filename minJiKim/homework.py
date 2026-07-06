@@ -30,6 +30,7 @@ c=int(input('횟수: '))
 print_str(s,c)
 
 
+
 #5
 def welcome(name, msg='환영합니다.') :
     print(f'{msg} {name}님')
